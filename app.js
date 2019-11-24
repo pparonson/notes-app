@@ -3,20 +3,6 @@ const yargs = require("yargs");
 const validator = require("validator");
 const notes = require("./notes.js");
 
-// create, add, list, remove notes
-// const addNote = async (file, input) => {
-//     await notes.addNote(file, input);
-// };
-
-// const printNote = async () => {
-//     const note = await notes.getNotes();
-//     console.log(note);
-// };
-
-// const createNote = async (file, input) => {
-//     notes.createNote("./notes.txt", input);
-// };
-
 // update yargs version
 yargs.version = "1.1.0";
 
@@ -36,9 +22,7 @@ yargs.command({
         }
     },
     handler(argv) {
-        console.log(
-            `Adding a new note. Title: ${argv.title}, body: ${argv.body}`
-        );
+        notes.addNote(argv.title, argv.body);
     }
 });
 
@@ -61,8 +45,9 @@ yargs.command({
 yargs.command({
     command: "list",
     describe: "List all notes",
-    handler() {
+    async handler() {
         console.log("Listing all notes");
+        let ret = await notes.loadNotes();
     }
 });
 
