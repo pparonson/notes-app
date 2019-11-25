@@ -10,15 +10,24 @@ const getNote = async () => {
 
 const addNote = async (_title, _body) => {
     let notes = await loadNotes();
-    try {
-        const note = {
-            title: _title,
-            body: _body
-        };
-        notes = [...notes, note];
-        saveNotes(notes);
-    } catch (e) {
-        console.log("Error: ", e);
+    // check duplicate notes array
+    const duplicateNotes = notes.filter(note => {
+        return note.title.toLowerCase() === _title.toLowerCase();
+    });
+
+    if (duplicateNotes.length > 0) {
+        console.log("note title already exists");
+    } else {
+        try {
+            const note = {
+                title: _title,
+                body: _body
+            };
+            notes = [...notes, note];
+            saveNotes(notes);
+        } catch (e) {
+            console.log("Error: ", e);
+        }
     }
 };
 

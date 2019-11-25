@@ -1,1 +1,9 @@
-[{"title":"Initial test note","body":"This is the initial test for adding a note"}]
+[
+    {
+        "title": "Initial test note",
+        "body": "This is the initial test for adding a note"
+    },
+    { "title": "second note", "body": "Adding a second note" },
+    { "title": "A unique title", "body": "testing duplicate note" }
+]
+
