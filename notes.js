@@ -24,11 +24,42 @@ const addNote = async (_title, _body) => {
                 body: _body
             };
             notes = [...notes, note];
-            saveNotes(notes);
+            await saveNotes(notes);
         } catch (e) {
             console.log("Error: ", e);
         }
     }
+};
+
+const removeNote = async _title => {
+    let notes = await loadNotes();
+    // find note to remove; if not found then returns undefined
+    // const foundNote = notes.find(note => {
+    //     return note.title.toLowerCase() === _title.toLowerCase();
+    // });
+
+    // console.log("foundNote.title: ", foundNote.title);
+
+    // if (foundNote) {
+    //     // mutates original array
+    //     notes.splice(notes.indexOf(foundNote.title, 1));
+    //     await saveNotes(notes);
+    // } else {
+    //     console.log(`${_title.toLowerCase()} not found`);
+    // }
+
+    let filteredNotes = notes.filter(note => {
+        if (note.title.toLowerCase() === _title.toLowerCase()) {
+            console.log(`Removing ${note.title}`);
+        }
+        return note.title.toLowerCase() !== _title.toLowerCase();
+    });
+
+    if (notes.length === filteredNotes.length) {
+        console.log(`${_title} not found. Nothing removed.`);
+    }
+
+    await saveNotes(filteredNotes);
 };
 
 const createNote = async (file, text) => {
@@ -63,6 +94,7 @@ const saveNotes = async data => {
 module.exports = {
     getNote,
     addNote,
+    removeNote,
     createNote,
     loadNotes
 };
