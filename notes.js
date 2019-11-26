@@ -33,21 +33,6 @@ const addNote = async (_title, _body) => {
 
 const removeNote = async _title => {
     let notes = await loadNotes();
-    // find note to remove; if not found then returns undefined
-    // const foundNote = notes.find(note => {
-    //     return note.title.toLowerCase() === _title.toLowerCase();
-    // });
-
-    // console.log("foundNote.title: ", foundNote.title);
-
-    // if (foundNote) {
-    //     // mutates original array
-    //     notes.splice(notes.indexOf(foundNote.title, 1));
-    //     await saveNotes(notes);
-    // } else {
-    //     console.log(`${_title.toLowerCase()} not found`);
-    // }
-
     let filteredNotes = notes.filter(note => {
         if (note.title.toLowerCase() === _title.toLowerCase()) {
             console.log(`Removing ${note.title}`);
